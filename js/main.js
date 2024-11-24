@@ -1,14 +1,19 @@
-import { setupCanvas, drawBackground } from './canvas.js';
-import { Player } from './player.js';
-import { handleInput } from './input.js';
-import { updateGame } from './game.js';
+import { setupCanvas, drawBackground } from "./canvas.js";
+import { Player } from "./player.js";
+import { handleInput } from "./input.js";
+import { updateGame } from "./game.js";
 
 const canvas = setupCanvas(); // Configura o canvas e o contexto
-const context = canvas.getContext('2d');
+const context = canvas.getContext("2d");
 
 // Criar os jogadores
-const player1 = new Player(100, canvas.height - 450, 'red');
-const player2 = new Player(canvas.width - 150, canvas.height - 450, 'blue');
+const player1 = new Player({ x: 100, y: canvas.height - 450 }, "right", "red");
+
+const player2 = new Player(
+  { x: canvas.width - 150, y: canvas.height - 450 },
+  "left",
+  "blue"
+);
 
 // Função principal de animação
 function gameLoop() {

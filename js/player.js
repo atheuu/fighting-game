@@ -1,10 +1,13 @@
 export class Player {
-  constructor(x, y, color) {
-    this.position = { x, y };
+  constructor(position, orientation, color) {
+    this.position = { x: position.x, y: position.y };
+    this.orientation = orientation;
     this.isOnGround = false;
     this.velocity = { x: 0, y: 0 };
-    this.width = 50; // Largura do jogador
-    this.height = 150; // Altura do jogador
+    this.width = 50;
+    this.height = 150;
+    this.attackBox = { width: 75, height: 50 };
+    this.isAttacking = false;
     this.color = color;
     this.health = 100;
   }
@@ -13,6 +16,25 @@ export class Player {
   draw(context) {
     context.fillStyle = this.color;
     context.fillRect(this.position.x, this.position.y, this.width, this.height);
+
+    // Desenha a caixa de ataque com base na orientação
+    if (this.isAttacking) {
+      if (this.orientation === "right") {
+        context.fillRect(
+          this.position.x + this.width,
+          this.position.y,
+          this.attackBox.width,
+          this.attackBox.height
+        );
+      } else {
+        context.fillRect(
+          this.position.x - this.attackBox.width,
+          this.position.y,
+          this.attackBox.width,
+          this.attackBox.height
+        );
+      }
+    }
   }
 
   // Aplica a gravidade ao jogador
@@ -39,9 +61,11 @@ export class Player {
   move(direction, canvasWidth) {
     if (direction === "left" && this.position.x > 0) {
       this.velocity.x = -7;
+      this.orientation = "left";
     }
     if (direction === "right" && this.position.x + this.width < canvasWidth) {
       this.velocity.x = 7;
+      this.orientation = "right";
     }
     if (direction === "up" && this.isOnGround) {
       this.velocity.y = -14;

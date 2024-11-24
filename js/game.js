@@ -9,18 +9,33 @@ export function updateGame(player1, player2, context) {
   player1.draw(context);
   player2.draw(context);
 
-  // Exemplo: Checa colisões entre os jogadores
-  if (checkCollision(player1, player2)) {
-    console.log('Colisão detectada!');
+  // Checa colisão da caixa de ataque do player1 com o player2
+  if (player1.isAttacking && checkAttackCollision(player1, player2)) {
+    console.log("player1 acertou um golpe!");
+  }
+
+  // Checa colisão da caixa de ataque do player2 com o player1
+  if (player2.isAttacking && checkAttackCollision(player2, player1)) {
+    console.log("player2 acertou um golpe!");
   }
 }
 
-// Checa se dois jogadores colidiram
-function checkCollision(player1, player2) {
+// Função para verificar colisão entre a caixa de ataque e o oponente
+function checkAttackCollision(attacker, target) {
+  const attackBox = {
+    x:
+      attacker.orientation === "right"
+        ? attacker.position.x + attacker.width // Frente do atacante
+        : attacker.position.x - attacker.attackBox.width, // Atrás do atacante
+    y: attacker.position.y,
+    width: attacker.attackBox.width,
+    height: attacker.attackBox.height,
+  };
+
   return (
-    player1.position.x < player2.position.x + player2.width &&
-    player1.position.x + player1.width > player2.position.x &&
-    player1.position.y < player2.position.y + player2.height &&
-    player1.position.y + player1.height > player2.position.y
+    attackBox.x < target.position.x + target.width &&
+    attackBox.x + attackBox.width > target.position.x &&
+    attackBox.y < target.position.y + target.height &&
+    attackBox.y + attackBox.height > target.position.y
   );
 }
