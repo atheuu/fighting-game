@@ -85,4 +85,9 @@ export class Player {
     // A velocidade horizontal deve ser resetada ao final de cada movimento
     this.velocity.x = 0;
   }
+
+  takeDamage(amount) {
+    this.health -= amount;
+    if (this.health < 0) this.health = 0;
+  }
 }

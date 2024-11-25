@@ -7,7 +7,44 @@
     <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
-    <canvas id="gameCanvas"></canvas>
+    <!-- Contêiner para barras de vida e cronômetro (centralizado no topo) -->
+    <div id="nav">
+      <!-- Barra de vida do Player 1 -->
+      <div class="player1">
+        <div class="player1-name">Samurai Mack</div>
+        <div class="health-bar player1-bar">
+          <div id="player1-health" class="health-fill"></div>
+        </div>
+      </div>
+
+      <!-- Cronômetro com caixa de fundo quase preto -->
+      <div class="timer">
+        <div class="timer-box">
+          <span id="timer">00:00</span>
+        </div>
+      </div>
+
+      <!-- Barra de vida do Player 2 -->
+      <div class="player2">
+        <div class="player2-name">Kenji</div>
+        <div class="health-bar player2-bar">
+          <div id="player2-health" class="health-fill"></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="floter">
+      <div ontouchstart="">
+        <div class="button">
+          <a href="#">Controles</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Canvas (tela do jogo) -->
+    <div class="game-screen">
+      <canvas id="gameCanvas"></canvas>
+    </div>
 
     <script type="module" src="js/main.js"></script>
   </body>
