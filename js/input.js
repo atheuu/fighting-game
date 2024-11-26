@@ -1,3 +1,5 @@
+import { gameState } from "./main.js";
+
 let keys = {};
 
 window.addEventListener("keydown", (event) => {
@@ -9,8 +11,8 @@ window.addEventListener("keyup", (event) => {
 });
 
 // Controla os jogadores com base nas teclas pressionadas
-export function handleInput(player1, player2, canvas, isGameActive) {
-  if (isGameActive) {
+export function handleInput(player1, player2, canvas) {
+  if (gameState.isGameActive) {
     // Movimento do player1
     if (keys["a"]) player1.move("left", canvas.width);
     if (keys["d"]) player1.move("right", canvas.width);

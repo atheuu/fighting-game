@@ -19,7 +19,7 @@ export function resizeCanvas(canvas) {
 
 // Carregamento da imagem de fundo fora da função para evitar carregá-la repetidamente
 const backgroundImage = new Image();
-backgroundImage.src = "../img/background.png";
+backgroundImage.src = "../assets/background.png";
 
 // Função para desenhar a imagem
 export function drawBackground(context, canvas) {

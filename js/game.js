@@ -1,6 +1,7 @@
+import { gameState } from "./main.js";
 import { checkAttackCollision, checkWinner, showMessage } from "./utils.js";
 
-export function updateGame(player1, player2, canvas, context, gameState) {
+export function updateGame(player1, player2, canvas, context) {
   const gravity = 0.5;
   const groundLevel = canvas.height * 0.834 - player1.height;
 

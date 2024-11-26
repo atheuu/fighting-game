@@ -4,11 +4,54 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Jogo de Luta</title>
-    <link rel="icon" href="img/favicon.png" type="image/x-icon" />
+    <link rel="icon" href="assets/favicon.png" type="image/x-icon" />
     <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
-    <!-- Contêiner para barras de vida e cronômetro (centralizado no topo) -->
+    <!-- Modal dos controles -->
+    <div id="controls-modal" class="modal hidden">
+      <div class="modal-header">
+        <h2>Controles</h2>
+        <button id="close-modal" class="close-button">&times;</button>
+      </div>
+      <div class="modal-content">
+        <div class="controls-row">
+          <!-- Samurai Mack -->
+          <div class="controls-section">
+            <h3>Samurai Mack</h3>
+            <ul class="controls-list">
+              <li><span class="key">A</span>: Direita</li>
+              <li><span class="key">D</span>: Esquerda</li>
+              <li><span class="key">W</span>: Pulo</li>
+              <li><span class="key">S</span>: Ataque</li>
+            </ul>
+          </div>
+
+          <!-- Kenji -->
+          <div class="controls-section">
+            <h3>Kenji</h3>
+            <ul class="controls-list">
+              <li><span class="key">→</span>: Direita</li>
+              <li><span class="key">←</span>: Esquerda</li>
+              <li><span class="key">↑</span>: Pulo</li>
+              <li><span class="key">↓</span>: Ataque</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Controles do Jogo -->
+        <div class="controls-section game-controls">
+          <h3>Jogo</h3>
+          <ul class="controls-list">
+            <li>
+              <span class="key">P</span>: Pausar e Abrir Janela de Controle
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Menu com baras de vida e cronômetro -->
     <div id="nav">
       <!-- Barra de vida do Player 1 -->
       <div class="player1">
@@ -34,6 +77,7 @@
       </div>
     </div>
 
+    <!-- Texto informativo -->
     <div id="text-container" class="text-container">
       <div class="text-wrapper">
         <span id="main-text" class="main-text">empate!</span>
@@ -41,9 +85,10 @@
       </div>
     </div>
 
+    <!-- Rodapé da tela -->
     <div id="floter">
       <div ontouchstart="">
-        <div class="button">
+        <div id="open-modal" class="button">
           <a href="#">Controles</a>
         </div>
       </div>
