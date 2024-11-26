@@ -12,17 +12,24 @@ export function resizeCanvas(canvas) {
   canvas.width = width;
   canvas.height = height;
 
-  // Ajusta a largura do menu superior e do botão
+  // Ajusta a largura do menu superior
   const nav = document.getElementById("nav");
   nav.style.width = `${width}px`;
-  const floter = document.getElementById("floter");
-  floter.style.width = `${width}px`;
 }
 
-// Desenha o fundo do jogo
+// Carregamento da imagem de fundo fora da função para evitar carregá-la repetidamente
+const backgroundImage = new Image();
+backgroundImage.src = "../img/background.png";
+
+// Função para desenhar a imagem
 export function drawBackground(context, canvas) {
-  context.fillStyle = "#555";
-  context.fillRect(0, 0, canvas.width, canvas.height);
-  context.fillStyle = "#1a1a1a";
-  context.fillRect(0, canvas.height * 0.75, canvas.width, canvas.height * 0.25);
+  // Certifique-se de desenhar a imagem somente após carregá-la
+  backgroundImage.onload = () => {
+    context.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
+  };
+
+  // Se a imagem já estiver carregada (cache), desenhe imediatamente
+  if (backgroundImage.complete) {
+    context.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
+  }
 }
