@@ -1,55 +1,74 @@
-export class Player {
-  constructor(position, orientation, color) {
-    this.position = { x: position.x, y: position.y };
+import { Sprite } from "./sprite.js";
+
+export class Player extends Sprite {
+  constructor({
+    position = { x: 0, y: 0 },
+    states = {},
+    offset = { x: 0, y: 0 },
+    scale = 1,
+    width = 50,
+    height = 150,
+    orientation = "right",
+    velocity = { x: 0, y: 0 },
+    attackBox = { width: 75, height: 50 },
+    health = 100,
+  }) {
+    super({ position, states, offset, scale });
+    this.health = health;
+    this.width = width;
+    this.height = height;
     this.orientation = orientation;
+    this.velocity = velocity;
+    this.speed = 7;
+    this.jumpForce = -16;
     this.isOnGround = false;
-    this.velocity = { x: 0, y: 0 };
-    this.width = 50;
-    this.height = 150;
-    this.attackBox = { width: 75, height: 50 };
     this.isAttacking = false;
-    this.color = color;
-    this.health = 100;
+    this.attackBox = attackBox;
   }
 
-  // Desenha o jogador no canvas
-  draw(context) {
-    context.fillStyle = this.color;
-    context.fillRect(this.position.x, this.position.y, this.width, this.height);
-
-    // Desenha a caixa de ataque com base na orientação
-    if (this.isAttacking) {
-      if (this.orientation === "right") {
-        context.fillRect(
-          this.position.x + this.width,
-          this.position.y,
-          this.attackBox.width,
-          this.attackBox.height
-        );
-      } else {
-        context.fillRect(
-          this.position.x - this.attackBox.width,
-          this.position.y,
-          this.attackBox.width,
-          this.attackBox.height
-        );
+  updatePlayer(context, gravity, groundLevel) {
+    this.applyGravity(gravity, groundLevel);
+    
+    // Atualiza animações de movimento
+    if (!this.lockedState) {
+      if (this.velocity.y < 0) {
+        this.updateState("jump");
+      } else if (this.velocity.y > 0) {
+        this.updateState("fall");
+      } else if (this.velocity.x !== 0) {
+        this.updateState("run");
+      } else if (this.velocity.x === 0) {
+        this.updateState("idle");
       }
     }
+
+    // Atualiza posição
+    this.position.x += this.velocity.x;
+    this.velocity.x = 0;
+
+    // this.drawHitBox(context);
+    this.updateSprite(context, this.orientation);
   }
 
-  // Aplica a gravidade ao jogador
-  applyGravity(gravity, groundLevel) {
-    // Aplica a gravidade se o jogador estiver no ar
-    if (!this.isOnGround) {
-      this.velocity.y += gravity;
+  attack() {
+    if (!this.lockedState) {
+      this.updateState("attack");
     }
+  }
 
-    // Atualiza a posição com a velocidade vertical
+  takeHit() {
+    if (!this.lockedState) {
+      this.health -= 10;
+      this.updateState("takeHit");
+    }
+  }
+
+  applyGravity(gravity, groundLevel) {
+    if (!this.isOnGround) this.velocity.y += gravity;
     this.position.y += this.velocity.y;
 
-    // Verifica se o jogador atingiu o chão
-    if (this.position.y >= groundLevel) {
-      this.position.y = groundLevel;
+    if (this.position.y + this.height >= groundLevel) {
+      this.position.y = groundLevel - this.height;
       this.velocity.y = 0;
       this.isOnGround = true;
     } else {
@@ -57,37 +76,44 @@ export class Player {
     }
   }
 
-  // Movimenta o jogador com limite de bordas
-  move(direction, canvasWidth) {
-    if (direction === "left" && this.position.x > 0) {
-      this.velocity.x = -7;
+  move(directions, canvasWidth) {
+    if (directions.includes("left") && directions.includes("right")) {
+      this.velocity.x = 0;
+    } else if (directions.includes("left") && this.position.x > 0) {
+      this.velocity.x = -this.speed;
       this.orientation = "left";
-    }
-    if (direction === "right" && this.position.x + this.width < canvasWidth) {
-      this.velocity.x = 7;
+    } else if (
+      directions.includes("right") &&
+      this.position.x + this.width < canvasWidth
+    ) {
+      this.velocity.x = this.speed;
       this.orientation = "right";
     }
-    if (direction === "up" && this.isOnGround) {
-      this.velocity.y = -14;
+    if (directions.includes("up") && this.isOnGround) {
+      this.velocity.y = this.jumpForce;
       this.isOnGround = false;
     }
-
-    // Atualiza a posição horizontal com a velocidade
-    this.position.x += this.velocity.x;
-
-    // Impede que o jogador ultrapasse os limites da tela
-    if (this.position.x < 0) {
-      this.position.x = 0; // Limite esquerdo
-    } else if (this.position.x + this.width > canvasWidth) {
-      this.position.x = canvasWidth - this.width; // Limite direito
-    }
-
-    // A velocidade horizontal deve ser resetada ao final de cada movimento
-    this.velocity.x = 0;
   }
 
-  takeDamage(amount) {
-    this.health -= amount;
-    if (this.health < 0) this.health = 0;
+  drawHitBox(context) {
+    // Hitbox do jogador
+    context.fillStyle = "rgba(0, 255, 0, 0.5)";
+    context.fillRect(this.position.x, this.position.y, this.width, this.height);
+
+    // Caixa de ataque (se estiver atacando)
+    if (this.isAttacking) {
+      const attackX =
+        this.orientation === "right"
+          ? this.position.x + this.width
+          : this.position.x - this.attackBox.width;
+
+      context.fillStyle = "rgba(255, 0, 0, 0.5)";
+      context.fillRect(
+        attackX,
+        this.position.y,
+        this.attackBox.width,
+        this.attackBox.height
+      );
+    }
   }
 }

@@ -4,14 +4,14 @@ const modal = document.getElementById("controls-modal");
 const openModalButton = document.getElementById("open-modal");
 const closeModalButton = document.getElementById("close-modal");
 const gameScreen = document.querySelector(".game-screen");
-const nav = document.getElementById("nav");
-const floter = document.getElementById("floter");
+const hud = document.getElementById("hud");
+const fdd = document.getElementById("fdd");
 
-export function openModal(gameState) {
+export function openModal() {
   modal.classList.remove("hidden");
   gameScreen.classList.add("blurred");
-  nav.classList.add("blurred");
-  floter.classList.add("blurred");
+  hud.classList.add("blurred");
+  fdd.classList.add("blurred");
   gameState.isPaused = true;
 }
 
@@ -19,8 +19,8 @@ export function openModal(gameState) {
 export function closeModal(gameState) {
   modal.classList.add("hidden");
   gameScreen.classList.remove("blurred");
-  nav.classList.remove("blurred");
-  floter.classList.remove("blurred");
+  hud.classList.remove("blurred");
+  fdd.classList.remove("blurred");
   gameState.isPaused = false;
 }
 

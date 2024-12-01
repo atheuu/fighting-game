@@ -6,30 +6,27 @@ export function setupCanvas() {
 }
 
 // Ajusta o tamanho do canvas mantendo a proporção 16:9
-export function resizeCanvas(canvas) {
-  const height = window.innerHeight * 0.85;
-  const width = height * (16 / 9);
+export function resizeCanvas(canvas, virtualWidth = 1024, virtualHeight = 576) {
+  const width = window.innerWidth * 0.8;
+  const height = width * (9 / 16);
   canvas.width = width;
   canvas.height = height;
 
-  // Ajusta a largura do menu superior
-  const nav = document.getElementById("nav");
-  nav.style.width = `${width}px`;
+  // Ajustes de elementos da página
+  const gameScreen = document.getElementById("game-screen");
+  gameScreen.style.width = `${width}px`;
+  gameScreen.style.height = `${height}px`;
+
+  // Calcula e retorna o fator de escala
+  return width / virtualWidth;
 }
 
-// Carregamento da imagem de fundo fora da função para evitar carregá-la repetidamente
 const backgroundImage = new Image();
-backgroundImage.src = "../assets/background.png";
+backgroundImage.src = "../assets/scenario/background.png";
 
-// Função para desenhar a imagem
-export function drawBackground(context, canvas) {
-  // Certifique-se de desenhar a imagem somente após carregá-la
-  backgroundImage.onload = () => {
-    context.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
-  };
-
-  // Se a imagem já estiver carregada (cache), desenhe imediatamente
-  if (backgroundImage.complete) {
-    context.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
-  }
+export function drawBackground(context, canvas, shop) {
+  context.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
+  shop.updateSprite(context);
+  context.fillStyle = "rgba(255, 255, 255, 0.1)";
+  context.fillRect(0, 0, canvas.width, canvas.height);
 }

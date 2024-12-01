@@ -1,3 +1,5 @@
+import { gameState } from "./main.js";
+
 export function checkAttackCollision(attacker, target) {
   const attackBox = {
     x:
@@ -25,27 +27,30 @@ export function formatTime(seconds) {
   }${remainingSeconds}`;
 }
 
-export function checkWinner(player1, player2, timeLeft) {
+export function checkWinner(player1, player2) {
+  const { health: health1 } = player1;
+  const { health: health2 } = player2;
 
-  if (player1.health <= 0 && player2.health <= 0) {
+  if (health1 <= 0 && health2 <= 0) {
     return { isGameActive: false, result: "Empate!" };
   }
 
-  if (player1.health > 0 && player2.health <= 0) {
-    return { isGameActive: false, result: "Samurai Mack venceu!" };
-  }
-
-  if (player2.health > 0 && player1.health <= 0) {
+  if (health1 <= 0) {
+    player1.updateState("death");
     return { isGameActive: false, result: "Kenji venceu!" };
   }
 
-  if (timeLeft <= 0) {
-    if (player1.health > player2.health) {
-      return { isGameActive: false, result: "Samurai Mack venceu!" };
-    }
+  if (health2 <= 0) {
+    player2.updateState("death");
+    return { isGameActive: false, result: "Samurai Mack venceu!" };
+  }
 
-    if (player2.health > player1.health) {
-      return { isGameActive: false, result: "Kenji venceu!" };
+  if (gameState.timeLeft <= 0) {
+    if (health1 !== health2) {
+      const loser = health1 > health2 ? player2 : player1;
+      const result = health1 > health2 ? "Samurai Mack venceu!" : "Kenji venceu!";
+      loser.updateState("death");
+      return { isGameActive: false, result };
     }
 
     return { isGameActive: false, result: "Empate!" };

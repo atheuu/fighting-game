@@ -25,6 +25,8 @@ body {
   margin: 0;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   height: 100vh;
   background-color: #111827;
 }
@@ -169,9 +171,9 @@ body {
   cursor: pointer;
 }
 
-#nav {
+#hud {
   position: absolute;
-  top: 8vh;
+  top: 0;
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
@@ -266,7 +268,6 @@ body {
 
 .text-container {
   position: absolute;
-  top: 40vh;
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
@@ -306,15 +307,15 @@ body {
 
 .shadow-text {
   position: absolute;
-  top: 5px;
-  left: 5px;
+  top: 2px;
+  left: 2px;
   color: #030a8c;
   z-index: 0;
 }
 
-#floter {
+#fdd {
   position: absolute;
-  bottom: 7.5vh;
+  bottom: 0;
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
@@ -376,11 +377,11 @@ body {
   border-radius: 3.75px;
 }
 
-.game-screen {
-  flex: 1;
+#game-screen {
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
 }
 
 canvas {

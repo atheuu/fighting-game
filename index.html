@@ -51,51 +51,52 @@
       </div>
     </div>
 
-    <!-- Menu com baras de vida e cronômetro -->
-    <div id="nav">
-      <!-- Barra de vida do Player 1 -->
-      <div class="player1">
-        <div class="player1-name">Samurai Mack</div>
-        <div class="health-bar player1-bar">
-          <div id="player1-health" class="health-fill"></div>
+    <!-- Conteiner principal -->
+    <div id="game-screen" class="game-screen">
+      <!-- Menu com baras de vida e cronômetro -->
+      <div id="hud">
+        <!-- Barra de vida do Player 1 -->
+        <div class="player1">
+          <div class="player1-name">Samurai Mack</div>
+          <div class="health-bar player1-bar">
+            <div id="player1-health" class="health-fill"></div>
+          </div>
+        </div>
+
+        <!-- Cronômetro com caixa de fundo quase preto -->
+        <div class="timer">
+          <div class="timer-box">
+            <span id="timer">01:30</span>
+          </div>
+        </div>
+
+        <!-- Barra de vida do Player 2 -->
+        <div class="player2">
+          <div class="player2-name">Kenji</div>
+          <div class="health-bar player2-bar">
+            <div id="player2-health" class="health-fill"></div>
+          </div>
         </div>
       </div>
 
-      <!-- Cronômetro com caixa de fundo quase preto -->
-      <div class="timer">
-        <div class="timer-box">
-          <span id="timer">01:30</span>
+      <!-- Texto informativo -->
+      <div id="text-container" class="text-container">
+        <div class="text-wrapper">
+          <span id="main-text" class="main-text">empate!</span>
+          <span id="shadow-text" class="shadow-text">empate!</span>
         </div>
       </div>
 
-      <!-- Barra de vida do Player 2 -->
-      <div class="player2">
-        <div class="player2-name">Kenji</div>
-        <div class="health-bar player2-bar">
-          <div id="player2-health" class="health-fill"></div>
+      <!-- Rodapé da tela -->
+      <div id="fdd">
+        <div ontouchstart="">
+          <div id="open-modal" class="button">
+            <a href="#">Controles</a>
+          </div>
         </div>
       </div>
-    </div>
 
-    <!-- Texto informativo -->
-    <div id="text-container" class="text-container">
-      <div class="text-wrapper">
-        <span id="main-text" class="main-text">empate!</span>
-        <span id="shadow-text" class="shadow-text">empate!</span>
-      </div>
-    </div>
-
-    <!-- Rodapé da tela -->
-    <div id="floter">
-      <div ontouchstart="">
-        <div id="open-modal" class="button">
-          <a href="#">Controles</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Canvas (tela do jogo) -->
-    <div class="game-screen">
+      <!-- Canvas (tela do jogo) -->
       <canvas id="gameCanvas"></canvas>
     </div>
 
