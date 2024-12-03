@@ -6,21 +6,23 @@ export class Player extends Sprite {
     states = {},
     offset = { x: 0, y: 0 },
     scale = 1,
+    name = "",
+    health = 100,
     width = 50,
     height = 150,
     orientation = "right",
     velocity = { x: 0, y: 0 },
     attackBox = { width: 75, height: 50 },
-    health = 100,
   }) {
     super({ position, states, offset, scale });
+    this.name = name;
     this.health = health;
     this.width = width;
     this.height = height;
     this.orientation = orientation;
     this.velocity = velocity;
     this.speed = 7;
-    this.jumpForce = -16;
+    this.jumpForce = -15;
     this.isOnGround = false;
     this.isAttacking = false;
     this.attackBox = attackBox;
@@ -28,7 +30,7 @@ export class Player extends Sprite {
 
   updatePlayer(context, gravity, groundLevel) {
     this.applyGravity(gravity, groundLevel);
-    
+
     // Atualiza animações de movimento
     if (!this.lockedState) {
       if (this.velocity.y < 0) {
@@ -48,19 +50,6 @@ export class Player extends Sprite {
 
     // this.drawHitBox(context);
     this.updateSprite(context, this.orientation);
-  }
-
-  attack() {
-    if (!this.lockedState) {
-      this.updateState("attack");
-    }
-  }
-
-  takeHit() {
-    if (!this.lockedState) {
-      this.health -= 10;
-      this.updateState("takeHit");
-    }
   }
 
   applyGravity(gravity, groundLevel) {
@@ -115,5 +104,12 @@ export class Player extends Sprite {
         this.attackBox.height
       );
     }
+  }
+
+  reset() {
+    this.position =
+      this.name === "Samurai Mack" ? { x: 204, y: 140 } : { x: 764, y: 140 };
+    this.health = 100;
+    this.lockedState = false;
   }
 }

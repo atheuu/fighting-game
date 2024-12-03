@@ -48,7 +48,8 @@ export function checkWinner(player1, player2) {
   if (gameState.timeLeft <= 0) {
     if (health1 !== health2) {
       const loser = health1 > health2 ? player2 : player1;
-      const result = health1 > health2 ? "Samurai Mack venceu!" : "Kenji venceu!";
+      const result =
+        health1 > health2 ? "Samurai Mack venceu!" : "Kenji venceu!";
       loser.updateState("death");
       return { isGameActive: false, result };
     }
@@ -59,12 +60,16 @@ export function checkWinner(player1, player2) {
   return { isGameActive: true, result: null };
 }
 
-export function showMessage(message) {
-  const textContainer = document.getElementById("text-container");
-  const mainText = document.getElementById("main-text");
-  const shadowText = document.getElementById("shadow-text");
+const textContainer = document.getElementById("text-container");
+const mainText = document.getElementById("main-text");
+const shadowText = document.getElementById("shadow-text");
 
+export function showMessage(message) {
   textContainer.style.display = "flex";
   mainText.textContent = message;
   shadowText.textContent = message;
+}
+
+export function hiddenMessage() {
+  textContainer.style.display = "none";
 }

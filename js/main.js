@@ -1,4 +1,4 @@
-import { setupCanvas, resizeCanvas, drawBackground } from "./canvas.js";
+import { setupCanvas, drawBackground } from "./canvas.js";
 import { Sprite } from "./sprite.js";
 import { Player } from "./player.js";
 import { handleInput } from "./input.js";
@@ -7,7 +7,6 @@ import { formatTime, checkWinner } from "./utils.js";
 import { openModal } from "./modal.js";
 
 const { canvas, context } = setupCanvas();
-let scaleFactor = resizeCanvas(canvas);
 
 export const gameState = {
   timeLeft: 90,
@@ -16,7 +15,7 @@ export const gameState = {
 };
 
 const shop = new Sprite({
-  position: { x: 625, y: 122 },
+  position: { x: 624, y: 121 },
   states: {
     idle: {
       imageSrc: "../assets/scenario/shop.png",
@@ -29,7 +28,8 @@ const shop = new Sprite({
 });
 
 const player1 = new Player({
-  position: { x: canvas.width * 0.2, y: 140 },
+  name: "Samurai Mack",
+  position: { x: 204, y: 140 },
   states: {
     idle: {
       imageSrc: "../assets/samuraiMack/idle.png",
@@ -68,18 +68,19 @@ const player1 = new Player({
       frameRetention: 5,
     },
   },
-  offset: { x: 262, y: 230 },
-  scale: 3,
-  width: 77,
-  height: 135,
+  offset: { x: 244, y: 221 },
+  scale: 2.8,
+  width: 64,
+  height: 120,
   orientation: "right",
   velocity: { x: 0, y: 0 },
-  attackBox: { width: 228, height: 75 },
+  attackBox: { width: 190, height: 75 },
   health: 100,
 });
 
 const player2 = new Player({
-  position: { x: canvas.width * 0.8, y: 140 },
+  name: "Kenji",
+  position: { x: 764, y: 140 },
   states: {
     idle: {
       imageSrc: "../assets/kenji/idle.png",
@@ -118,13 +119,13 @@ const player2 = new Player({
       frameRetention: 5,
     },
   },
-  offset: { x: 282, y: 234 },
-  scale: 3,
-  width: 60,
-  height: 150,
+  offset: { x: 263, y: 218 },
+  scale: 2.8,
+  width: 56,
+  height: 140,
   orientation: "left",
   velocity: { x: 0, y: 0 },
-  attackBox: { width: 198, height: 100 },
+  attackBox: { width: 193, height: 100 },
   health: 100,
 });
 

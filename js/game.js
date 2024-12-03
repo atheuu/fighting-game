@@ -1,5 +1,10 @@
 import { gameState } from "./main.js";
-import { checkAttackCollision, checkWinner, showMessage } from "./utils.js";
+import {
+  checkAttackCollision,
+  checkWinner,
+  showMessage,
+  hiddenMessage,
+} from "./utils.js";
 
 export function updateGame(player1, player2, canvas, context) {
   const groundLevel = canvas.height * 0.8333;
@@ -9,11 +14,17 @@ export function updateGame(player1, player2, canvas, context) {
   player2.updatePlayer(context, gravity, groundLevel);
 
   if (player1.isAttacking && checkAttackCollision(player1, player2)) {
-    player2.takeHit();
+    if (!player2.lockedState) {
+      player2.health -= 10;
+      player2.updateState("takeHit");
+    }
   }
 
   if (player2.isAttacking && checkAttackCollision(player2, player1)) {
-    player1.takeHit();
+    if (!player1.lockedState) {
+      player1.health -= 10;
+      player1.updateState("takeHit");
+    }
   }
 
   const player1HealthBar = document.getElementById("player1-health");
@@ -27,4 +38,16 @@ export function updateGame(player1, player2, canvas, context) {
     gameState.isGameActive = false;
     showMessage(winnerCheck.result);
   }
+}
+
+export function resetGame(player1, player2) {
+  gameState.timeLeft = 90;
+  gameState.isGameActive = true;
+  gameState.isPaused = false;
+
+  player1.reset();
+  player2.reset();
+
+  hiddenMessage();
+  document.getElementById("timer").textContent = "01:30";
 }

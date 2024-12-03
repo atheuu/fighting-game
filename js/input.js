@@ -1,4 +1,5 @@
 import { gameState } from "./main.js";
+import { resetGame } from "./game.js";
 
 let keys = {};
 
@@ -31,7 +32,15 @@ export function handleInput(player1, player2, canvas) {
     player2.move(player2Directions, canvas.width);
 
     // Ataques
-    if (keys["s"]) player1.attack();
-    if (keys["ArrowDown"]) player2.attack();
+    if (keys["s"]) player1.updateState("attack");
+    if (keys["ArrowDown"]) player2.updateState("attack");
   }
+  
+  document.addEventListener("keydown", (event) => {
+    if (event.key.toLowerCase() === "r") {
+      if (!gameState.isGameActive) {
+        resetGame(player1, player2);
+      }
+    }
+  });
 }

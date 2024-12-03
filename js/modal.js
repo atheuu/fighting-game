@@ -24,17 +24,6 @@ export function closeModal(gameState) {
   gameState.isPaused = false;
 }
 
-// Alterna o estado do modal com a tecla "P"
-document.addEventListener("keydown", (event) => {
-  if (event.key.toLowerCase() === "p") {
-    if (modal.classList.contains("hidden")) {
-      openModal(gameState);
-    } else {
-      closeModal(gameState);
-    }
-  }
-});
-
 // Evento para abrir o modal pelo botão com atraso
 openModalButton.addEventListener("click", () => {
   setTimeout(() => {
@@ -45,4 +34,14 @@ openModalButton.addEventListener("click", () => {
 // Evento para fechar o modal pelo botão
 closeModalButton.addEventListener("click", () => {
   closeModal(gameState);
+});
+
+document.addEventListener("keydown", (event) => {
+  if (event.key.toLowerCase() === "p") {
+    if (modal.classList.contains("hidden")) {
+      openModal(gameState);
+    } else {
+      closeModal(gameState);
+    }
+  }
 });
