@@ -106,10 +106,10 @@ export class Player extends Sprite {
     }
   }
 
-  reset() {
-    this.position =
-      this.name === "Samurai Mack" ? { x: 204, y: 140 } : { x: 764, y: 140 };
+  resetPlayer({ position = { x: 0, y: 0 }, orientation = "right" }) {
+    this.position = position;
+    this.orientation = orientation;
     this.health = 100;
-    this.lockedState = false;
+    this.lockedState = false; 
   }
 }

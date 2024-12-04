@@ -45,8 +45,8 @@ export function resetGame(player1, player2) {
   gameState.isGameActive = true;
   gameState.isPaused = false;
 
-  player1.reset();
-  player2.reset();
+  player1.resetPlayer({ position: { x: 204, y: 140 }, orientation: "right" });
+  player2.resetPlayer({ position: { x: 764, y: 140 }, orientation: "left" });
 
   hiddenMessage();
   document.getElementById("timer").textContent = "01:30";
