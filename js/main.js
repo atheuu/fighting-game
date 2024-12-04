@@ -7,6 +7,8 @@ import { formatTime, checkWinner } from "./utils.js";
 import { openModal } from "./modal.js";
 
 const { canvas, context } = setupCanvas();
+const backgroundImage = new Image();
+backgroundImage.src = "../assets/scenario/background.png";
 
 export const gameState = {
   timeLeft: 90,
@@ -74,7 +76,7 @@ const player1 = new Player({
   height: 120,
   orientation: "right",
   velocity: { x: 0, y: 0 },
-  attackBox: { width: 190, height: 75 },
+  attackBox: { width: 221, height: 75 },
   health: 100,
 });
 
@@ -134,7 +136,7 @@ gameLoop();
 
 function gameLoop() {
   context.clearRect(0, 0, canvas.width, canvas.height);
-  drawBackground(context, canvas, shop);
+  drawBackground(context, canvas, backgroundImage, shop);
   if (!gameState.isPaused) {
     handleInput(player1, player2, canvas);
     updateGame(player1, player2, canvas, context);

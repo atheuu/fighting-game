@@ -106,7 +106,7 @@ export class Player extends Sprite {
     }
   }
 
-  resetPlayer({ position = { x: 0, y: 0 }, orientation = "right" }) {
+  resetPlayer({ position, orientation}) {
     this.position = position;
     this.orientation = orientation;
     this.health = 100;

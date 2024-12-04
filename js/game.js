@@ -14,17 +14,13 @@ export function updateGame(player1, player2, canvas, context) {
   player2.updatePlayer(context, gravity, groundLevel);
 
   if (player1.isAttacking && checkAttackCollision(player1, player2)) {
-    if (!player2.lockedState) {
-      player2.health -= 10;
-      player2.updateState("takeHit");
-    }
+    player2.health -= 2; 
+    player2.updateState("takeHit");
   }
 
   if (player2.isAttacking && checkAttackCollision(player2, player1)) {
-    if (!player1.lockedState) {
-      player1.health -= 10;
-      player1.updateState("takeHit");
-    }
+    player1.health -= 2;
+    player1.updateState("takeHit");
   }
 
   const player1HealthBar = document.getElementById("player1-health");

@@ -7,10 +7,7 @@ export function setupCanvas() {
   return { canvas, context };
 }
 
-const backgroundImage = new Image();
-backgroundImage.src = "../assets/scenario/background.png";
-
-export function drawBackground(context, canvas, shop) {
+export function drawBackground(context, canvas, backgroundImage, shop) {
   context.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
   shop.updateSprite(context);
   context.fillStyle = "rgba(255, 255, 255, 0.1)";

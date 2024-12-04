@@ -84,33 +84,45 @@ export class Sprite {
   updateState(newState) {
     if (this.currentState === newState) return;
 
-    // Se o estado for "death", interrompe qualquer outra animação
     if (newState === "death") {
-      this.lockedState = true; // Impede futuras mudanças de estado
+      this.lockedState = true;
+      this._setState(newState);
+      return;
     }
 
-    // Estados "takeHit" e "attack" bloqueiam até completarem
+    if (newState === "takeHit" && this.currentState === "attack") {
+      this.lockedState = false;
+      this.onAnimationEnd = null;
+      this._setState(newState);
+      return;
+    }
+
     if (newState === "takeHit" || newState === "attack") {
       this.lockedState = true;
       this.onAnimationEnd = () => {
         this.lockedState = false;
         this.onAnimationEnd = null;
       };
+      this._setState(newState);
+      return;
     }
 
-    // Define as propriedades do estado
+    if (!this.lockedState) {
+      this._setState(newState);
+    }
+  }
+
+  _setState(newState) {
     const stateConfig = this.states[newState];
     this.image.src = stateConfig.imageSrc;
     this.maxFrames = stateConfig.maxFrames;
     this.frameRetention = stateConfig.frameRetention;
+
     if (newState === "attack") {
       this.attackFrame = stateConfig.attackFrame;
     }
-
-    // Atualiza o estado atual
+    
     this.currentState = newState;
-
-    // Reseta o contador de quadros para evitar inconsistências
     this.currentFrame = 0;
     this.framesElapsed = 0;
   }
