@@ -20,8 +20,8 @@
           <div class="controls-section">
             <h3>Samurai Mack</h3>
             <ul class="controls-list">
-              <li><span class="key">A</span>: Direita</li>
-              <li><span class="key">D</span>: Esquerda</li>
+              <li><span class="key">D</span>: Direita</li>
+              <li><span class="key">A</span>: Esquerda</li>
               <li><span class="key">W</span>: Pulo</li>
               <li><span class="key">S</span>: Ataque</li>
             </ul>
@@ -40,16 +40,14 @@
         </div>
 
         <!-- Controles do Jogo -->
-        <!-- Controles do Jogo -->
         <div class="controls-section game-controls">
           <h3>Jogo</h3>
           <ul class="controls-list">
             <li>
               <span class="key">P</span>: Pausar e Abrir Janela de Controles
             </li>
-            <li>
-              <span class="key">R</span>: Reinicia o Jogo (Se Finalizado)
-            </li>
+            <li><span class="key">R</span>: Reinicia o Jogo (Se Finalizado!)</li>
+            <li><span class="key">M</span>: Iniciar ou Pausar a música</li>
           </ul>
         </div>
       </div>
@@ -93,10 +91,16 @@
 
       <!-- Rodapé da tela -->
       <div id="fdd">
-        <div ontouchstart="">
+        <div class="stamina-bar">
+          <div class="stamina-bar-fill-1" id="player1-stamina"></div>
+        </div>
+        <div class="button-container">
           <div id="open-modal" class="button">
             <a href="#">Controles</a>
           </div>
+        </div>
+        <div class="stamina-bar" id="right-bar">
+          <div class="stamina-bar-fill-2" id="player2-stamina"></div>
         </div>
       </div>
 

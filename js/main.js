@@ -53,8 +53,14 @@ const player1 = new Player({
       maxFrames: 2,
       frameRetention: 5,
     },
-    attack: {
+    attackOne: {
       imageSrc: "../assets/samuraiMack/attackOne.png",
+      maxFrames: 6,
+      attackFrame: 5,
+      frameRetention: 5,
+    },
+    attackTwo: {
+      imageSrc: "../assets/samuraiMack/attackTwo.png",
       maxFrames: 6,
       attackFrame: 5,
       frameRetention: 5,
@@ -104,8 +110,14 @@ const player2 = new Player({
       maxFrames: 2,
       frameRetention: 5,
     },
-    attack: {
+    attackOne: {
       imageSrc: "../assets/kenji/attackOne.png",
+      maxFrames: 4,
+      attackFrame: 3,
+      frameRetention: 5,
+    },
+    attackTwo: {
+      imageSrc: "../assets/kenji/attackTwo.png",
       maxFrames: 4,
       attackFrame: 3,
       frameRetention: 5,

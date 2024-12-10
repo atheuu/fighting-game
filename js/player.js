@@ -8,6 +8,7 @@ export class Player extends Sprite {
     scale = 1,
     name = "",
     health = 100,
+    stamina = 100,
     width = 50,
     height = 150,
     orientation = "right",
@@ -17,6 +18,7 @@ export class Player extends Sprite {
     super({ position, states, offset, scale });
     this.name = name;
     this.health = health;
+    this.stamina = stamina;
     this.width = width;
     this.height = height;
     this.orientation = orientation;
@@ -28,8 +30,16 @@ export class Player extends Sprite {
     this.attackBox = attackBox;
   }
 
+  attack() {
+    if (this.stamina >= 50) {
+      this.updateState("attackOne");
+    }
+  }
+
   updatePlayer(context, gravity, groundLevel) {
     this.applyGravity(gravity, groundLevel);
+    if (this.stamina < 100 && this.currentState !== "attackOne")
+      this.stamina += 1;
 
     // Atualiza animações de movimento
     if (!this.lockedState) {
@@ -106,10 +116,10 @@ export class Player extends Sprite {
     }
   }
 
-  resetPlayer({ position, orientation}) {
+  resetPlayer({ position, orientation }) {
     this.position = position;
     this.orientation = orientation;
     this.health = 100;
-    this.lockedState = false; 
+    this.lockedState = false;
   }
 }

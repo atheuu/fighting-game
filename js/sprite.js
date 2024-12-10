@@ -68,15 +68,20 @@ export class Sprite {
         }
 
         this.currentFrame = 0;
+        
+        if (this.currentState === "attackOne") {
+          if (this.onAnimationEnd) this.onAnimationEnd();
+          this.stamina -= 50;
+        }
 
-        if (this.currentState === "attack" || this.currentState === "takeHit") {
+        if (this.currentState === "takeHit") {
           if (this.onAnimationEnd) this.onAnimationEnd();
         }
       }
 
       // Atualiza o estado de ataque
       this.isAttacking =
-        this.currentState === "attack" &&
+        this.currentState === "attackOne" &&
         this.currentFrame === this.attackFrame - 1;
     }
   }
@@ -90,14 +95,14 @@ export class Sprite {
       return;
     }
 
-    if (newState === "takeHit" && this.currentState === "attack") {
+    if (newState === "takeHit" && this.currentState === "attackOne") {
       this.lockedState = false;
       this.onAnimationEnd = null;
       this._setState(newState);
       return;
     }
 
-    if (newState === "takeHit" || newState === "attack") {
+    if (newState === "takeHit" || newState === "attackOne") {
       this.lockedState = true;
       this.onAnimationEnd = () => {
         this.lockedState = false;
@@ -118,7 +123,7 @@ export class Sprite {
     this.maxFrames = stateConfig.maxFrames;
     this.frameRetention = stateConfig.frameRetention;
 
-    if (newState === "attack") {
+    if (newState === "attackOne") {
       this.attackFrame = stateConfig.attackFrame;
     }
     

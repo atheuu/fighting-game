@@ -23,11 +23,17 @@ export function updateGame(player1, player2, canvas, context) {
     player1.updateState("takeHit");
   }
 
-  const player1HealthBar = document.getElementById("player1-health");
-  player1HealthBar.style.width = `${player1.health}%`;
+  const player1Health = document.getElementById("player1-health");
+  player1Health.style.width = `${player1.health}%`;
 
-  const player2HealthBar = document.getElementById("player2-health");
-  player2HealthBar.style.width = `${player2.health}%`;
+  const player2Health = document.getElementById("player2-health");
+  player2Health.style.width = `${player2.health}%`;
+
+  const player1Stamina = document.getElementById("player1-stamina");
+  player1Stamina.style.width = `${player1.stamina}%`;
+
+  const player2Stamina = document.getElementById("player2-stamina");
+  player2Stamina.style.width = `${player2.stamina}%`;
 
   const winnerCheck = checkWinner(player1, player2);
   if (!winnerCheck.isGameActive) {

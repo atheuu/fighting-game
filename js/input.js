@@ -1,6 +1,31 @@
 import { gameState } from "./main.js";
 import { resetGame } from "./game.js";
 
+const music = new Audio("../assets/the-synth-wars.mp3");
+music.loop = true;
+
+// Controle de play/pause
+const toggleMusicButton = document.getElementById("toggleMusic");
+let isPlaying = false;
+
+// Função para alternar reprodução/pausa
+function toggleMusic() {
+  if (isPlaying) {
+    music.pause();
+    console.log("Música pausada");
+  } else {
+    music.play();
+    console.log("Música tocando");
+  }
+  isPlaying = !isPlaying;
+}
+
+document.addEventListener("keydown", (event) => {
+  if (event.key.toLowerCase() === "m") {
+    toggleMusic();
+  }
+});
+
 let keys = {};
 
 window.addEventListener("keydown", (event) => {
@@ -32,10 +57,10 @@ export function handleInput(player1, player2, canvas) {
     player2.move(player2Directions, canvas.width);
 
     // Ataques
-    if (keys["s"]) player1.updateState("attack");
-    if (keys["ArrowDown"]) player2.updateState("attack");
+    if (keys["s"]) player1.attack();
+    if (keys["ArrowDown"]) player2.attack();
   }
-  
+
   document.addEventListener("keydown", (event) => {
     if (event.key.toLowerCase() === "r") {
       if (!gameState.isGameActive) {

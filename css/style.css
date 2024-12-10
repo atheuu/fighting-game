@@ -320,11 +320,56 @@ body {
   transform: translateX(-50%);
   width: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  padding: 1rem;
+  padding: 1rem 4rem;
   user-select: none;
   z-index: 10;
+}
+
+.stamina-bar {
+  width: 150px;
+  height: 20px;
+  background-color: #665873;
+  border: 2px solid #261514;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  position: relative;
+  overflow: hidden; /* Adicionado para conter o preenchimento */
+}
+
+.stamina-bar::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: calc(50% - 1px);
+  height: 100%;
+  width: 2px;
+  background-color: #261514;
+  transform: translateX(-50%);
+  z-index: 999;
+}
+
+.stamina-bar-fill-1 {
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #F2C46D;
+  position: absolute;
+}
+
+.stamina-bar-fill-2 {
+  right: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #F2C46D;
+  position: absolute;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .button {
